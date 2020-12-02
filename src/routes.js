@@ -19,17 +19,17 @@ routes.post("/sessions", SessionController.store);
 
 routes.get("/instituicao", InstituicaoController.index);
 routes.get("/objeto/categoria/:id", ObjetoController.index);
-routes.get("/objeto/categoria/:nome", ObjetoController.adquirirObjetoNome);
+routes.post("/objeto/nome", ObjetoController.adquirirObjetoNome);
 routes.get("/objeto/:id", ObjetoController.adquirirObjeto);
 routes.get("/categoria", CategoriaController.index);
 routes.get("/local", LocalController.index);
-// routes.post("/imagens", upload.single("imagem"), ArquivoController.store);
+routes.post("/usuario", UsuarioController.store);
+routes.post("/instituicao", InstituicaoController.store);
 
 routes.use(authMiddleware);
 
 //USUARIO
 routes.get("/usuario", UsuarioController.index);
-routes.post("/usuario", UsuarioController.store);
 routes.put("/usuario", UsuarioController.update);
 routes.delete("/usuario", UsuarioController.delete);
 
@@ -44,13 +44,14 @@ routes.put("/local", LocalController.update);
 routes.delete("/local/:id", LocalController.delete);
 
 //Instituicao
-routes.post("/instituicao", InstituicaoController.store);
 routes.put("/instituicao", InstituicaoController.update);
 routes.delete("/instituicao/:id", InstituicaoController.delete);
+routes.get("/buscarinstituicao", InstituicaoController.buscar);
 
 //OBJETO
 routes.post("/objeto", ObjetoController.store);
 routes.put("/objeto", ObjetoController.update);
 routes.delete("/bojeto/:id", ObjetoController.delete);
+routes.get("/all", ObjetoController.all);
 
 export default routes;

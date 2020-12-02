@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import Objeto from "../models/Objeto";
 import Local from "../models/Local";
-import Arquivo from "../models/Arquivo";
+import { Op } from "sequelize";
 
 class ObjetoController {
   async index(req, res) {
@@ -15,13 +15,6 @@ class ObjetoController {
         {
           model: Local,
           attributes: ["id", "descricao", "complemento"],
-        },
-        {
-          model: Arquivo,
-          where: {
-            tipo: 1,
-          },
-          attributes: ["id", "url"],
         },
       ],
     });
@@ -115,7 +108,31 @@ class ObjetoController {
   }
 
   async adquirirObjetoNome(req, res) {
-    
+    const { nome, categoria } = req.body;
+    console.log(nome, categoria);
+    const objeto = await Objeto.findAll({
+      where: {
+        nome: {
+          [Op.like]: `%${nome}%`,
+        },
+        codigo_categoria: categoria,
+      },
+      order: [["created_at", "DESC"]],
+      attributes: ["id", "nome", "descricao", "status", "destaque"],
+      include: [
+        {
+          model: Local,
+          attributes: ["id", "descricao", "complemento"],
+        },
+      ],
+    });
+    return res.json(objeto);
+  }
+
+  async all(req, res) {
+    const t = await Objeto.findAll();
+
+    return res.json(t);
   }
 }
 

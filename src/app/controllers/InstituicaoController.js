@@ -76,6 +76,14 @@ class InstituicaoController {
 
     return res.json(true);
   }
+
+  async buscar(req, res) {
+    const instituicao = await Instituicao.findOne({
+      order: [["created_at", "DESC"]],
+      attributes: ["id", "nome", "endereco", "numero_telefone"],
+    });
+    return res.json(instituicao);
+  }
 }
 
 export default new InstituicaoController();

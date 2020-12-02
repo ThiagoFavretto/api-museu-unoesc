@@ -12,7 +12,7 @@ class Arquivo extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `${process.env.APP_URL}/imagem/${this.caminho}`;
+            return `${process.env.APP_URL}/imagens/${this.caminho}`;
           },
         },
       },

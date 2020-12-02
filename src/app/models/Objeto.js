@@ -24,7 +24,6 @@ class Objeto extends Model {
     this.belongsTo(models.Categoria, { foreignKey: "codigo_categoria" });
     this.belongsTo(models.Instituicao, { foreignKey: "codigo_instituicao" });
     this.belongsTo(models.Local, { foreignKey: "codigo_local" });
-    this.hasMany(models.Arquivo, { foreignKey: "codigo_objeto" });
   }
 }
 
